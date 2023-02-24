@@ -21,6 +21,7 @@ services:
       context: docker-compose/php
       dockerfile: Dockerfile
     image: laravel:8-php81fpm
+    platform: linux/x86_64
     ports:
       - 9000:9000
     environment:

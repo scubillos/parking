@@ -2,7 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CustomerController;
+use App\Http\Resources\ReservationResource;
+use App\Http\Resources\LocationResource;
+use App\Models\VehicleIn;
+use App\Models\Location;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,14 +18,22 @@ use App\Http\Controllers\CustomerController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-Route::prefix('customers')->group(function () {
-    Route::controller(CustomerController::class)->group(function () {
-        Route::get('list', 'indexApi');
-    });
-});
+Route::post('reservation', 'App\Http\Controllers\VehicleInController@create');
+Route::put('reservation', 'App\Http\Controllers\VehicleInController@update');
+Route::delete('reservation', 'App\Http\Controllers\VehicleInController@destroy');
+
+Route::get('reservations', function () {
+    return ReservationResource::collection(VehicleIn::all());
+} );
+
+Route::get('locations', function () {
+    return LocationResource::collection(Location::all());
+} );
+
+Route::get('reservation/{id}', function ($id) {
+    return new ReservationResource(VehicleIn::findOrFail($id));
+} );
+
 
 Route::get('customers', function () {
     return 'Bienvenido al API';
