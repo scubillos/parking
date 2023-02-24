@@ -14,6 +14,11 @@ class CustomerController extends Controller
         return view('customers.index', ['customers' => Customer::all()]);
     }
 
+    public function indexApi()
+    {
+        return response()->json(Customer::all());
+    }
+
     public function create()
     {
         return view('customers.create');

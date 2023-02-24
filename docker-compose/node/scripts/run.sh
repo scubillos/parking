@@ -12,11 +12,11 @@ cd $WORKDIR
 if [ -d "$NODE_MODULES_DIR" ]; then
 	# Si el directorio node_modules existe se limpia únicamente caché
   echo " > Limpiando caché de proyecto."
-	
+	npm cache clean --force  
 else
 	echo " > Instalando dependencias de node."
 	npm i
 fi
 
 echo ">> Ambiente Iniciado Correctamente."
-npm run watch-poll
+npm run dev-host
