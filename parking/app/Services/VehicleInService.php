@@ -115,7 +115,7 @@ class VehicleInService
 
     private function hasReservation(array $data) {
 
-        $reservations = VehicleIn::where('vehicle_id', $data['location_id'])
+        $reservations = VehicleIn::where('vehicle_id', $data['vehicle_id'])
             ->where('schedule_day', $data['schedule_day'])
             ->get();
         if (isset($reservations)) {
