@@ -103,7 +103,7 @@ class VehicleInService
 
             if (isset($reservations)) {
                 foreach ($reservations as $reservation) {
-                    if ($reservation->schedule == $data['schedule'] || $reservation->schedule == 'day')
+                    if ($reservation->schedule == $data['schedule'] || $reservation->schedule == 'day' || $data['schedule'] == 'day')
                         return false;
                 }
                 return true;
