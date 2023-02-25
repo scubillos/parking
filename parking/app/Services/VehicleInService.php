@@ -52,9 +52,10 @@ class VehicleInService
         $vehicle = Vehicle::where("plat_number", $data['plat_number'])->first();
         unset($data["plat_number"]);
         $data["vehicle_id"] = $vehicle->id;
-        $available = $this->isAvailable($data,$vehicle->type);
+        $isAllowedLocation = $this->isAllowedLocation($data,$vehicle->type);
+        $available = $this->isAvailable($data);
         $hasReservation = $this->hasReservation($data);
-        if($available['value'] && $hasReservation['value']) {
+        if($available['value'] && $hasReservation['value'] && $isAllowedLocation['value']) {
             $reservation = new VehicleIn($data);
             $reservation->save();
             return [
@@ -63,7 +64,7 @@ class VehicleInService
             ];
         }
         return [
-            "message" => $available['message'] . $hasReservation['message'],
+            "message" => $available['message'] . $hasReservation['message'] . $isAllowedLocation['message'] ,
             $data,
         ];
 
@@ -77,44 +78,25 @@ class VehicleInService
     {
         $reservation = VehicleIn::find($id);
         $vehicle = Vehicle::find($reservation->vehicle_id);
-        $available = $this->isAvailable($reservation->toArray(),$vehicle->type);
-        if($available['value']) {
+        $result = array_replace($reservation->toArray(),$data);
+        $available = $this->isAvailable($result,true);
+        $isAllowedLocation = $this->isAllowedLocation($result,$vehicle->type);
+        if($available['value'] && $isAllowedLocation['value']) {
             $reservation->update($data);
             return [
                 $data
             ];
         }
         return [
-            "message" => $available['message'],
+            "message" => $available['message'] . $isAllowedLocation['message'] ,
             $data,
         ];
     }
 
-    private function isAvailable(array $data, $type){
-
+    private function isAllowedLocation (array $data, $type)
+    {
         $location = Location::find($data['location_id']);
-
         if ($location->type == $type && $location->status > 0) {
-            $reservations = VehicleIn::where('location_id', $data['location_id'])
-                ->where('schedule_day', $data['schedule_day'])
-                ->get();
-
-            if (isset($reservations)) {
-                foreach ($reservations as $reservation) {
-                    if (($reservation->schedule == $data['schedule'] ||
-                            $reservation->schedule == 'day' ||
-                            $data['schedule'] == 'day') &&
-                        $reservation->vehicle_id != $data['vehicle_id'])
-                        return [
-                            'value' => false,
-                            'message' => "sin cupo disponible para esa locacion"
-                        ];
-                }
-                return [
-                    'value' => true,
-                    'message' => ""
-                ];
-            }
             return [
                 'value' => true,
                 'message' => ""
@@ -124,6 +106,34 @@ class VehicleInService
             'value' => false,
             'message' => "Locacion no activa o no acepta el tipo de vehiculo"
         ];
+    }
+
+    private function isAvailable(array $data, $update = false)
+    {
+
+        $reservations = VehicleIn::where('location_id', $data['location_id'])
+            ->where('schedule_day', $data['schedule_day']);
+        if($update){
+
+            $reservations->where('vehicle_id','<>',$data['vehicle_id']);
+        }
+        $totalReservations = $reservations->get();
+
+        if (isset($totalReservations)) {
+            foreach ($totalReservations as $reservation) {
+                if (($reservation->schedule == $data['schedule'] ||
+                        $reservation->schedule == 'day' ||
+                        $data['schedule'] == 'day'))
+                    return [
+                        'value' => false,
+                        'message' => "sin cupo disponible para esa locacion"
+                    ];
+            }
+            return [
+                'value' => true,
+                'message' => ""
+            ];
+        }
     }
 
     private function hasReservation(array $data) {
