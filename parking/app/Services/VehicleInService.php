@@ -55,7 +55,7 @@ class VehicleInService
         $data["vehicle_id"] = $vehicle->id;
         $available = $this->isAvailable($data,$vehicle->type);
         $hasReservation = $this->hasReservation($data);
-        if($available && !$hasReservation) {
+        if($available && $hasReservation) {
             $reservation = new VehicleIn($data);
             $reservation->save();
             return [
