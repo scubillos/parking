@@ -2,53 +2,80 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Vehicle;
-use App\Models\VehicleIn;
-use App\Http\Requests\StoreVehicleInRequest;
-use App\Http\Requests\UpdateVehicleInRequest;
+use Illuminate\Http\Request;
+use App\Services\VehicleInService;
+use Validator;
 
 class VehicleInController extends Controller
 {
 
-    public function index()
+    /**
+     * ShipmentService $service
+     * @var service
+     */
+    protected $service;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct(VehicleInService $service)
     {
-        return view('vehicles_in.index',
-        [
-            'vehiclesIn' => VehicleIn::with(['vehicle:id,name,registration_number', 'user:id,name'])->where('status', 0)->get(),
-            'vehiclesIn_History' => VehicleIn::with(['vehicle:id,name,registration_number', 'user:id,name'])->where('status', 1)->get()
-        ]);
+        $this->service = $service;
+    }
+    /**
+     *      *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function create(Request $request)
+    {
+        $data = $request->toArray();
+        $validator = Validator::make($data, $this->service::reservationRules());
+
+        if ($validator->fails()) {
+            return response(['status' => 'error', 'message' => $validator->errors()], 400);
+        }
+
+        try {
+            return response($this->service->reservation($data));
+        } catch (\Exception $e) {
+            return response(['status' => 'error', 'message' => "Reservation: " . $e->getMessage()], 400);
+        }
     }
 
-    public function create()
+    public function update(Request $request, $id)
     {
-        return view('vehicles_in.create',['vehicles' => Vehicle::get(['id','name', 'registration_number'])]);
+        $data = $request->toArray();
+        $validator = Validator::make($data, $this->service::reservationUpdateRules());
+
+        if ($validator->fails()) {
+            return response(['status' => 'error', 'message' => $validator->errors()], 400);
+        }
+
+        try {
+            return response($this->service->reservationUpdate($data,$id));
+        } catch (\Exception $e) {
+            return response(['status' => 'error', 'message' => "Reservation: " . $e->getMessage()], 400);
+        }
     }
 
-    public function store(StoreVehicleInRequest $request)
+    public function destroy(Request $request)
     {
-        VehicleIn::updateOrCreate(['id' => $request->vehiclesIn_id], $request->all());
+        $data = $request->toArray();
 
-        return redirect()->route('vehiclesIn.index')->with('success', 'Vehicle Entered Successfully!!');
-    }
+        $validator = Validator::make($data, $this->service::reservationUpdateRules());
 
-    public function show(VehicleIn $vehiclesIn)
-    {
-        return view('vehicles_in.show',compact('vehicleIn'), ['vehicles' => Vehicle::get(['id','name', 'registration_number'])]);
-    }
+        if ($validator->fails()) {
+            return response(['status' => 'error', 'message' => $validator->errors()], 400);
+        }
 
-    public function edit(VehicleIn $vehiclesIn)
-    {
-        return view('vehicles_in.edit', compact('vehiclesIn'), ['vehicles' => Vehicle::get(['id','name', 'registration_number'])]);
-    }
-
-    public function update(UpdateVehicleInRequest $request, VehicleIn $vehiclesIn)
-    {
-        //
-    }
-
-    public function destroy(VehicleIn $vehiclesIn)
-    {
-        $vehiclesIn->delete();
-        return redirect()->route('vehiclesIn.index')->with('success', 'Vehicle In Deleted Successfully!!');
+        try {
+            return response($this->service->reservationUpdate($data));
+        } catch (\Exception $e) {
+            return response(['status' => 'error', 'message' => "Reservation: " . $e->getMessage()], 400);
+        }
     }
 }

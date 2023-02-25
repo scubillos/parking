@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Location;
 use App\Models\User;
 use App\Models\Vehicle;
 use App\Models\VehicleIn;
@@ -19,7 +20,7 @@ class VehicleInSeeder extends Seeder
      */
     public function run()
     {
-        $bloks = ['Blok A', 'Blok B', 'Blok C', 'Blok D'];
+        $times = ['day', 'morning', 'afternoon'];
 
         foreach (range(1, 10) as $value) {
             $id = Vehicle::inRandomOrder()->first()->id;
@@ -29,8 +30,10 @@ class VehicleInSeeder extends Seeder
             }
             DB::table('vehicle_ins')->insert([
                 "vehicle_id" => $id,
-                "parking_area" => $bloks[rand(0, 3)],
-                "parking_number" => rand(12, 34353),
+                "location_id" => Location::inRandomOrder()->first()->id,
+                'schedule' => $times[rand(0, 2)],
+                'schedule_day' => Carbon::today(),
+                "status" => rand(0, 1),
                 "created_by" => User::inRandomOrder()->first()->id,
                 "created_at" => Carbon::today(),
                 "updated_at" => Carbon::today()

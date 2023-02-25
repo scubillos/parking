@@ -21,7 +21,8 @@ class VehicleSeeder extends Seeder
     {
         $faker = Factory::create();
 
-        $cities = ["Erbil", 'Silemani', 'Duhok', 'Halabja', 'Kerkuk'];
+        $prefix = ["ASD", 'FGR', 'WER', 'JRK'];
+        $type = ['motorcycle', 'car'];
         $carNames = [
             "Abarth",
             "Alfa Romeo",
@@ -92,12 +93,11 @@ class VehicleSeeder extends Seeder
         foreach (range(1, 30) as $value) {
             DB::table('vehicles')->insert([
                 "name" => $carNames[rand(0, count($carNames) - 1)],
-                "plat_number" => $cities[rand(0, 4)] . " - " . rand(10000, 999999),
-                "duration" => rand(1, 4),
+                "plat_number" => $prefix[rand(0, 3)] . rand(100, 999),
                 "packing_charge" => 1000,
-                "status" => rand(0, 2),
+                "status" => rand(0, 1),
+                "type" => $type[rand(0, 1)],
                 "registration_number" => rand(12, 34353) . time(),
-                "category_id" => Category::inRandomOrder()->first()->id,
                 "customer_id" => Customer::inRandomOrder()->first()->id,
                 "created_by" => User::inRandomOrder()->first()->id,
                 "created_at" => Carbon::today(),
