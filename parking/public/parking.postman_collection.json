@@ -52,7 +52,48 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8000/api/reservations/10",
+					"raw": "localhost:8000/api/reservation/25",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"reservation",
+						"25"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "vehicle by plat",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/vehicle/plat/FGR663",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"vehicle",
+						"plat",
+						"FGR663"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getbyVehicleId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/reservations/vehicle/13",
 					"host": [
 						"localhost"
 					],
@@ -60,7 +101,31 @@
 					"path": [
 						"api",
 						"reservations",
-						"10"
+						"vehicle",
+						"13"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "locations Availables",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/locations/date/2023-03-04/schedule/morning",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"locations",
+						"date",
+						"2023-03-04",
+						"schedule",
+						"morning"
 					]
 				}
 			},
@@ -73,7 +138,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"location_id\": 3,\n    \"plat_number\":\"FGR663\",\n    \"schedule\": \"morning\",\n    \"schedule_day\": \"2023-02-28\",\n    \"created_by\":1\n}",
+					"raw": "{\n    \"location_id\": 9,\n    \"plat_number\":\"ASD606\",\n    \"schedule\": \"afternoon\",\n    \"schedule_day\": \"2023-03-04\",\n    \"created_by\":1\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -81,15 +146,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8000/api/reservation/",
+					"raw": "localhost:8000/api/reservation",
 					"host": [
 						"localhost"
 					],
 					"port": "8000",
 					"path": [
 						"api",
-						"reservation",
-						""
+						"reservation"
 					]
 				}
 			},
@@ -102,7 +166,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\": 10,\n    \"parking_area\": \"Bloque A\",\n    \"parking_number\":\"2\", \n    \"vehicle_id\":2,\n    \"schedule\": \"day\",\n    \"schedule_day\": \"2023-02-28\",\n    \"created_by\":1\n}",
+					"raw": "{\n    \"schedule\": \"day\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -110,7 +174,7 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8000/api/reservation/",
+					"raw": "localhost:8000/api/reservation/25",
 					"host": [
 						"localhost"
 					],
@@ -118,7 +182,7 @@
 					"path": [
 						"api",
 						"reservation",
-						""
+						"25"
 					]
 				}
 			},
