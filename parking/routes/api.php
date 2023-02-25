@@ -21,6 +21,7 @@ use App\Models\Location;
 Route::post('reservation', 'App\Http\Controllers\VehicleInController@create');
 Route::put('reservation/{id}', 'App\Http\Controllers\VehicleInController@update');
 Route::delete('reservation', 'App\Http\Controllers\VehicleInController@destroy');
+Route::get('locations/date/{date}/schedule/{schedule}', 'App\Http\Controllers\LocationController@getAvailable');
 
 Route::get('reservations', function () {
     return ReservationResource::collection(VehicleIn::all());
@@ -32,6 +33,10 @@ Route::get('locations', function () {
 
 Route::get('reservation/{id}', function ($id) {
     return new ReservationResource(VehicleIn::findOrFail($id));
+} );
+
+Route::get('reservations/vehicle/{vehicle}', function ($vehicle) {
+    return ReservationResource::collection(VehicleIn::where("vehicle_id",$vehicle)->get());
 } );
 
 
