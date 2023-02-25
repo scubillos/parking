@@ -8,7 +8,7 @@
         <div class="d-flex flex-row-reverse mb-3">
           <MDBBtn color="primary"
                   aria-controls="modalForm"
-                  @click="modalForm=true"
+                  @click="ReservationsStore.toggleModal()"
           >
             <i class="fas fa-plus"></i>
             Nueva reserva
@@ -18,89 +18,26 @@
           <MDBTable class="align-middle mb-0 bg-white" responsive hover>
             <thead class="bg-light">
             <tr>
-              <th>Name</th>
-              <th>Title</th>
-              <th>Status</th>
-              <th>Position</th>
-              <th>Actions</th>
+              <th>Placa</th>
+              <th>Fecha</th>
+              <th>Franja</th>
+              <th>Ubicación</th>
+              <th>Acciones</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
+            <tr v-for="reservation in ReservationsStore.reservation_list">
+              <td v-text="reservation.plat" />
+              <td v-text="reservation.Day" />
+              <td v-text="reservation.Schedule" />
+              <td v-text="reservation.reservation_area" />
               <td>
-                <div class="d-flex align-items-center">
-                  <img src="https://mdbootstrap.com/img/new/avatars/8.jpg" alt="" style="width: 45px; height: 45px"
-                       class="rounded-circle" />
-                  <div class="ms-3">
-                    <p class="fw-bold mb-1">John Doe</p>
-                    <p class="text-muted mb-0">john.doe@gmail.com</p>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <p class="fw-normal mb-1">Software engineer</p>
-                <p class="text-muted mb-0">IT department</p>
-              </td>
-              <td>
-                <MDBBadge badge="success" pill class="d-inline">Active</MDBBadge>
-              </td>
-              <td>Senior</td>
-              <td>
-                <MDBBtn color="link" size="sm" rounded>
-                  Edit
+                <MDBBtn color="success" size="sm" rounded>
+                  Editar
                 </MDBBtn>
               </td>
             </tr>
-            <tr>
-              <td>
-                <div class="d-flex align-items-center">
-                  <img src="https://mdbootstrap.com/img/new/avatars/6.jpg" class="rounded-circle" alt=""
-                       style="width: 45px; height: 45px" />
-                  <div class="ms-3">
-                    <p class="fw-bold mb-1">Alex Ray</p>
-                    <p class="text-muted mb-0">alex.ray@gmail.com</p>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <p class="fw-normal mb-1">Consultant</p>
-                <p class="text-muted mb-0">Finance</p>
-              </td>
-              <td>
-                <MDBBadge badge="primary" pill class="d-inline">Onboarding</MDBBadge>
-              </td>
-              <td>Junior</td>
-              <td>
-                <MDBBtn color="link" size="sm" rounded class="fw-bold" :ripple="{ color: 'dark' }">
-                  Edit
-                </MDBBtn>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div class="d-flex align-items-center">
-                  <img src="https://mdbootstrap.com/img/new/avatars/7.jpg" class="rounded-circle" alt=""
-                       style="width: 45px; height: 45px" />
-                  <div class="ms-3">
-                    <p class="fw-bold mb-1">Kate Hunington</p>
-                    <p class="text-muted mb-0">kate.hunington@gmail.com</p>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <p class="fw-normal mb-1">Designer</p>
-                <p class="text-muted mb-0">UI/UX</p>
-              </td>
-              <td>
-                <MDBBadge badge="warning" pill class="d-inline">Awaiting</MDBBadge>
-              </td>
-              <td>Senior</td>
-              <td>
-                <MDBBtn color="link" size="sm" rounded class="fw-bold" :ripple="{ color: 'dark' }">
-                  Edit
-                </MDBBtn>
-              </td>
-            </tr>
+
             </tbody>
           </MDBTable>
         </div>
@@ -113,20 +50,20 @@
     id="modalForm"
     tabindex="-1"
     labelledby="modalForm"
-    v-model="modalForm"
+    v-model="ReservationsStore.modalForm"
   >
     <MDBModalHeader>
-      <MDBModalTitle> Crear / Editar Reservación </MDBModalTitle>
+      <MDBModalTitle> {{ (ReservationsStore.action === 'create') ? 'Crear' : 'Editar' }} Reservación </MDBModalTitle>
     </MDBModalHeader>
     <MDBModalBody>
       <FormReservation />
     </MDBModalBody>
     <MDBModalFooter>
-      <MDBBtn color="danger" @click="modalForm = false">
+      <MDBBtn color="danger" @click="ReservationsStore.toggleModal()">
         <i class="far fa-times-circle"></i>
         Cerrar
       </MDBBtn>
-      <MDBBtn color="primary">
+      <MDBBtn color="primary" @click="save">
         <i class="fas fa-save"></i>
         Guardar
       </MDBBtn>
@@ -139,7 +76,6 @@
 import {
   MDBTable,
   MDBBtn,
-  MDBBadge,
   MDBCard,
   MDBCardHeader,
   MDBCardBody,
@@ -151,9 +87,25 @@ import {
   MDBModalFooter,
 } from 'mdb-vue-ui-kit';
 import FormReservation from './FormReservation.vue';
-import {ref} from "vue";
+import { ref, onMounted } from "vue";
+import { useReservationsStore } from "../../stores/Reservations/ReservationsStore";
 
-const modalForm = ref(false);
+const ReservationsStore = useReservationsStore();
+
+onMounted(() => {
+  ReservationsStore.getAll();
+});
+
+const save = () => {
+  if (ReservationsStore.action === 'create') {
+    ReservationsStore.create();
+  } else {
+    ReservationsStore.update();
+  }
+}
+
+
+
 </script>
 
 <style scoped>
