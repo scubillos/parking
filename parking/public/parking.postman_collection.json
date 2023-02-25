@@ -1,0 +1,128 @@
+{
+	"info": {
+		"_postman_id": "7fa1b63e-290d-44c3-add7-9ae8b90b2dac",
+		"name": "parking",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6956713"
+	},
+	"item": [
+		{
+			"name": "Getall",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/reservations/",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"reservations",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Getall locations",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/locations/",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"locations",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getbyId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/reservations/10",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"reservations",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Creacion",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"location_id\": 3,\n    \"plat_number\":\"FGR663\",\n    \"schedule\": \"morning\",\n    \"schedule_day\": \"2023-02-28\",\n    \"created_by\":1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/reservation/",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"reservation",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 10,\n    \"parking_area\": \"Bloque A\",\n    \"parking_number\":\"2\", \n    \"vehicle_id\":2,\n    \"schedule\": \"day\",\n    \"schedule_day\": \"2023-02-28\",\n    \"created_by\":1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/reservation/",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"reservation",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
