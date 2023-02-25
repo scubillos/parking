@@ -2,7 +2,7 @@
   <MDBContainer>
     <div
       class="d-flex justify-content-center align-items-center"
-      style="height: 100vh"
+      style="height: 60vh"
     >
       <div class="text-center">
         <img

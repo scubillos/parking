@@ -1,19 +1,12 @@
 <template>
   <header>
     <!-- Navbar -->
-    <MDBNavbar expand="lg" light bg="white" container>
+    <MDBNavbar expand="lg" bg="light" position="sticky">
       <MDBNavbarToggler target="#navbarExample01"></MDBNavbarToggler>
-      <MDBNavbarNav collapse="navbarExample01" class="mb-2 mb-lg-0">
-        <template v-for="header in headerOptions" >
-          <MDBNavbarItem class="dropdown" v-model="header.dropdown" :to="header.url !== '#' ? header.url : '#'">
-            <MDBDropdownToggle @click="header.dropdown = !header.dropdown">
-              {{ header.text }}
-            </MDBDropdownToggle>
-            <MDBDropdownMenu :aria-labelledby="'dropdownMenu' + header.key">
-              <MDBDropdownItem href="#">Action</MDBDropdownItem>
-              <MDBDropdownItem href="#">Another Action</MDBDropdownItem>
-              <MDBDropdownItem href="#">Something else here</MDBDropdownItem>
-            </MDBDropdownMenu>
+      <MDBNavbarNav collapse="navbarExample01" class="mb-2 mb-lg-0" >
+        <template v-for="header in headerOptions">
+          <MDBNavbarItem :to="header.url">
+            {{ header.text }}
           </MDBNavbarItem>
         </template>
       </MDBNavbarNav>
@@ -28,8 +21,6 @@ import {
   MDBNavbarToggler,
   MDBNavbarNav,
   MDBNavbarItem,
-  MDBDropdownMenu,
-  MDBDropdownItem
 } from 'mdb-vue-ui-kit';
 import {ref} from "vue";
 
@@ -37,7 +28,7 @@ const headerOptions = ref([
   {
     key: 'home',
     url: '#',
-    text: 'Inicio',
+    text: 'Reservaciones',
     dropdown: false,
   },
   {
