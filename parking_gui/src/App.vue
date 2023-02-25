@@ -1,12 +1,17 @@
-<script setup lang="ts">
-import { RouterView } from 'vue-router'
-import FooterApp from "@/views/Layout/FooterApp.vue";
-import HeaderApp from "@/views/Layout/HeaderApp.vue";
+<template>
+  <MDBContainer>
+    <Header />
+    <router-view />
+  </MDBContainer>
+</template>
 
+<script setup lang="ts">
+import { MDBContainer } from "mdb-vue-ui-kit";
+import Header from "./components/Layout/Header.vue";
 </script>
 
-<template>
-  <HeaderApp />
-  <RouterView></RouterView>
-  <FooterApp />
-</template>
+<style scoped>
+#app {
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+}
+</style>
