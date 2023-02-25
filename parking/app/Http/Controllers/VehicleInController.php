@@ -46,7 +46,7 @@ class VehicleInController extends Controller
         }
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $data = $request->toArray();
         $validator = Validator::make($data, $this->service::reservationUpdateRules());
@@ -56,7 +56,7 @@ class VehicleInController extends Controller
         }
 
         try {
-            return response($this->service->reservationUpdate($data));
+            return response($this->service->reservationUpdate($data,$id));
         } catch (\Exception $e) {
             return response(['status' => 'error', 'message' => "Reservation: " . $e->getMessage()], 400);
         }

@@ -19,7 +19,7 @@ use App\Models\Location;
 */
 
 Route::post('reservation', 'App\Http\Controllers\VehicleInController@create');
-Route::put('reservation', 'App\Http\Controllers\VehicleInController@update');
+Route::put('reservation/{id}', 'App\Http\Controllers\VehicleInController@update');
 Route::delete('reservation', 'App\Http\Controllers\VehicleInController@destroy');
 
 Route::get('reservations', function () {
