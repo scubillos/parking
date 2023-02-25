@@ -30,7 +30,7 @@ class LocationSeeder extends Seeder
                     "name" => $location. ' '.$value,
                     "parking_area_id" => ParkingArea::where('name',$location)->first()->id,
                     "parking_number" => $value,
-                    "status" => rand(0, 2),
+                    "status" => rand(0, 1),
                     "type" => $type[rand(0, 1)],
                     "created_by" => User::inRandomOrder()->first()->id,
                     "created_at" => Carbon::today(),

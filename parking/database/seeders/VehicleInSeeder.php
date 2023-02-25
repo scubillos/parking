@@ -33,7 +33,7 @@ class VehicleInSeeder extends Seeder
                 "location_id" => Location::inRandomOrder()->first()->id,
                 'schedule' => $times[rand(0, 2)],
                 'schedule_day' => Carbon::today(),
-                "status" => rand(0, 2),
+                "status" => rand(0, 1),
                 "created_by" => User::inRandomOrder()->first()->id,
                 "created_at" => Carbon::today(),
                 "updated_at" => Carbon::today()

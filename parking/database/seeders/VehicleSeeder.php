@@ -95,7 +95,7 @@ class VehicleSeeder extends Seeder
                 "name" => $carNames[rand(0, count($carNames) - 1)],
                 "plat_number" => $prefix[rand(0, 3)] . rand(100, 999),
                 "packing_charge" => 1000,
-                "status" => rand(0, 2),
+                "status" => rand(0, 1),
                 "type" => $type[rand(0, 1)],
                 "registration_number" => rand(12, 34353) . time(),
                 "customer_id" => Customer::inRandomOrder()->first()->id,
