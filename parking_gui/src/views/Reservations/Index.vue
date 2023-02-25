@@ -4,7 +4,7 @@
       <MDBCardHeader>
         <h5>Listado de reservaciones</h5>
       </MDBCardHeader>
-      <MDBCardBody>
+      <MDBCardBody style="margin-bottom: 50px;">
         <div class="d-flex flex-row-reverse mb-3">
           <MDBBtn color="primary"
                   aria-controls="modalForm"
@@ -102,6 +102,7 @@ const save = () => {
   } else {
     ReservationsStore.update();
   }
+  ReservationsStore.getAll();
 };
 
 const newForm = () => {
