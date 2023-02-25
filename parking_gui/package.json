@@ -13,6 +13,7 @@
   "dependencies": {
     "mdb-vue-ui-kit": "3.2.0",
     "vue": "^3.2.40",
+    "vue-next-select": "^2.10.5",
     "vue-router": "^4.1.5"
   },
   "devDependencies": {

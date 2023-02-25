@@ -6,7 +6,10 @@
       </MDBCardHeader>
       <MDBCardBody>
         <div class="d-flex flex-row-reverse mb-3">
-          <MDBBtn color="primary" >
+          <MDBBtn color="primary"
+                  aria-controls="modalForm"
+                  @click="modalForm=true"
+          >
             <i class="fas fa-plus"></i>
             Nueva reserva
           </MDBBtn>
@@ -104,6 +107,32 @@
       </MDBCardBody>
     </MDBCard>
   </MDBContainer>
+
+  <MDBModal
+    size="lg"
+    id="modalForm"
+    tabindex="-1"
+    labelledby="modalForm"
+    v-model="modalForm"
+  >
+    <MDBModalHeader>
+      <MDBModalTitle> Crear / Editar Reservación </MDBModalTitle>
+    </MDBModalHeader>
+    <MDBModalBody>
+      <FormReservation />
+    </MDBModalBody>
+    <MDBModalFooter>
+      <MDBBtn color="danger" @click="modalForm = false">
+        <i class="far fa-times-circle"></i>
+        Cerrar
+      </MDBBtn>
+      <MDBBtn color="primary">
+        <i class="fas fa-save"></i>
+        Guardar
+      </MDBBtn>
+    </MDBModalFooter>
+  </MDBModal>
+
 </template>
 
 <script setup lang="ts">
@@ -115,7 +144,13 @@ import {
   MDBCardHeader,
   MDBCardBody,
   MDBContainer,
+  MDBModal,
+  MDBModalHeader,
+  MDBModalTitle,
+  MDBModalBody,
+  MDBModalFooter,
 } from 'mdb-vue-ui-kit';
+import FormReservation from './FormReservation.vue';
 import {ref} from "vue";
 
 const modalForm = ref(false);
