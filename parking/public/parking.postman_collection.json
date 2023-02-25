@@ -67,6 +67,27 @@
 			"response": []
 		},
 		{
+			"name": "vehicle by plat",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/vehicle/plat/FGR663",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"vehicle",
+						"plat",
+						"FGR663"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "getbyVehicleId",
 			"request": {
 				"method": "GET",
