@@ -8,7 +8,7 @@
         <div class="d-flex flex-row-reverse mb-3">
           <MDBBtn color="primary"
                   aria-controls="modalForm"
-                  @click="ReservationsStore.toggleModal()"
+                  @click="newForm()"
           >
             <i class="fas fa-plus"></i>
             Nueva reserva
@@ -27,12 +27,12 @@
             </thead>
             <tbody>
             <tr v-for="reservation in ReservationsStore.reservation_list">
-              <td v-text="reservation.plat" />
+              <td>{{reservation.plat}}</td>
               <td v-text="reservation.Day" />
-              <td v-text="reservation.Schedule" />
+              <td v-text="ReservationsStore.transformShedule(reservation.Schedule)" />
               <td v-text="reservation.reservation_area" />
               <td>
-                <MDBBtn color="success" size="sm" rounded>
+                <MDBBtn color="success" size="sm" rounded @click="show(reservation.id)">
                   Editar
                 </MDBBtn>
               </td>
@@ -102,9 +102,19 @@ const save = () => {
   } else {
     ReservationsStore.update();
   }
-}
+};
 
+const newForm = () => {
+  ReservationsStore.action = 'create';
+  ReservationsStore.resetForm();
+  ReservationsStore.toggleModal(true);
+};
 
+const show = async (id: number) => {
+  await ReservationsStore.show(id);
+  ReservationsStore.action = 'edit';
+  ReservationsStore.toggleModal(true);
+};
 
 </script>
 

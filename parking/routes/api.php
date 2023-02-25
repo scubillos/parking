@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Resources\ReservationListResource;
 use App\Http\Resources\ReservationResource;
 use App\Http\Resources\LocationResource;
 use App\Http\Resources\VehicleResource;
@@ -26,7 +27,7 @@ Route::delete('reservation', 'App\Http\Controllers\VehicleInController@destroy')
 Route::get('locations/date/{date}/schedule/{schedule}', 'App\Http\Controllers\LocationController@getAvailable');
 
 Route::get('reservations', function () {
-    return ReservationResource::collection(VehicleIn::all());
+    return ReservationListResource::collection(VehicleIn::all());
 } );
 
 Route::get('reservation/{id}', function ($id) {

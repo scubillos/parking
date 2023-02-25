@@ -27,25 +27,25 @@ import {ref} from "vue";
 const headerOptions = ref([
   {
     key: 'home',
-    url: '#',
+    url: '/',
     text: 'Reservaciones',
     dropdown: false,
   },
   {
     key: 'profile',
-    url: '#',
+    url: '/in-dev',
     text: 'Perfil',
     dropdown: false,
   },
   {
-    key: 'felp',
-    url: '#',
+    key: 'help',
+    url: '/in-dev',
     text: 'Ayuda',
     dropdown: false,
   },
   {
     key: 'logout',
-    url: '#',
+    url: '/in-dev',
     text: 'Cerrar sesión',
     dropdown: false,
   },

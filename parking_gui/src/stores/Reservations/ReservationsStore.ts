@@ -46,9 +46,32 @@ export const useReservationsStore = defineStore('reservationsStore', {
       ];
     },
 
-    toggleModal(): boolean {
-      this.modalForm = !this.modalForm;
+    transformShedule(id_schedule: string): string {
+      if (this.schedules.length === 0) {
+        this.getSchedules();
+      }
+      let filter = this.schedules.filter((schedule: Schedule) => { return schedule.id === id_schedule });
+      return filter[0].text;
+    },
+
+    toggleModal(status: boolean|null = null): boolean {
+      if (status !== null) {
+        this.modalForm = status;
+      } else {
+        this.modalForm = !this.modalForm;
+      }
       return this.modalForm;
+    },
+
+    resetForm(): void {
+      this.action = 'create';
+      this.form = {} as Reservation;
+    },
+
+    // Validations
+    async vehicleByPlat(plat: string): Promise<boolean> {
+      const response = await axiosHttp.get(`/vehicle/plat/${plat}`);
+      return plat === response.data.data.plat_number;
     },
 
     // CRUD
@@ -61,8 +84,18 @@ export const useReservationsStore = defineStore('reservationsStore', {
       }
     },
 
-    async show(): Promise<void> {
-      const response = await
+    async update(): Promise<void> {
+      const response = await axiosHttp.put(`/reservation/${this.form.id}`, this.form);
+      if (response.data.message !== undefined) {
+        alert("Error " + response.data.message);
+      } else {
+        alert("Reservacion actualizada exitosamente");
+      }
+    },
+
+    async show(id: number): Promise<void> {
+      const response = await axiosHttp.get(`/reservation/${id}`);
+      this.form = response.data.data;
     }
   }
 });

@@ -1,8 +1,8 @@
 <template>
   <form>
     <!-- 2 column grid layout with text inputs for the first and last names -->
-    <MDBRow class="mb-4">
-      <MDBCol col="4">
+    <MDBRow class="mb-2">
+      <MDBCol col="6">
         <label>Placa</label>
         <input
           class="form-control"
@@ -12,9 +12,8 @@
         />
       </MDBCol>
     </MDBRow>
-    <MDBRow>
-
-      <MDBCol>
+    <MDBRow class="mb-2">
+      <MDBCol col="6">
         <label>Fecha de reserva</label>
         <input
           class="form-control"
@@ -24,7 +23,7 @@
         />
       </MDBCol>
 
-      <MDBCol>
+      <MDBCol col="6">
         <label>Franja</label>
         <select
           aria-label="Franja"
@@ -35,7 +34,9 @@
           <option v-for="schedule in ReservationsStore.schedules" :value="schedule.id" v-text="schedule.text" />
         </select>
       </MDBCol>
-      <MDBCol>
+    </MDBRow>
+    <MDBRow class="mb-2">
+      <MDBCol col="6">
         <label>Ubicación</label>
         <select
           aria-label="Franja"
@@ -45,6 +46,16 @@
         >
           <option v-for="location in ReservationsStore.locations" :value="location.id" v-text="location.text" />
         </select>
+      </MDBCol>
+      <MDBCol col="6" v-if="ReservationsStore.action === 'edit'">
+        <label>Activo</label>
+        <br>
+        <input
+          type="checkbox"
+          v-model="ReservationsStore.form.status"
+          id="form_status"
+          value="1"
+        />
       </MDBCol>
     </MDBRow>
 

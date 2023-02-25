@@ -4,6 +4,7 @@ export interface Reservation {
   plat_number: string;
   schedule: string;
   schedule_day: string;
+  status?: number;
   created_by: number;
 }
 
