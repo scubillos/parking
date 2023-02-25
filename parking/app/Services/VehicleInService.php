@@ -117,8 +117,8 @@ class VehicleInService
 
         $reservations = VehicleIn::where('vehicle_id', $data['vehicle_id'])
             ->where('schedule_day', $data['schedule_day'])
-            ->get();
-        if (isset($reservations)) {
+            ->first();
+        if (!empty($reservations)) {
             return false;
         }
         return true;
