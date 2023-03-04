@@ -1,7 +1,8 @@
 package com.parking.testmodules.backend;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.parking.basetestclasses.BaseTestApiRest;
+import com.parking.models.reservations.ResponseReservations;
+import com.parking.models.user.ResponseUser;
 import io.qameta.allure.Description;
 import io.qameta.allure.Step;
 import io.qameta.allure.restassured.AllureRestAssured;
@@ -27,7 +28,21 @@ public class ReservationsTest extends BaseTestApiRest {
                 .get(apiReservations);
         checkStatusCode(200, response.getStatusCode());
         response.then().log().all();
+        ResponseReservations dataItem = response.body().as(ResponseReservations.class);
+    }
 
+    @Test
+    @DisplayName("Reservation list")
+    @Description("This test check the list of reservations present")
+    public void testOne() {
+        Response response = RestAssured.given().baseUri("https://reqres.in")
+                .filter(new AllureRestAssured())
+                .when()
+                .get("/api/users/2");
+        checkStatusCode(200, response.getStatusCode());
+        response.then().log().all();
+        ResponseUser dataItem = response.body().as(ResponseUser.class);
+        System.out.println();
     }
 
     @Test

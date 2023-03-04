@@ -3,7 +3,6 @@ package com.parking.pageobjects.reservation;
 import com.parking.drivermanager.WebDriverManager;
 import com.parking.pageobjects.BasePageObject;
 import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
