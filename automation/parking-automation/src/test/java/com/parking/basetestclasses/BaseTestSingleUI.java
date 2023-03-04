@@ -1,25 +1,30 @@
 package com.parking.basetestclasses;
 
+import com.parking.drivermanager.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+
+import java.io.File;
+import java.io.InputStream;
+import java.nio.file.Files;
 
 public class BaseTestSingleUI extends BaseTest {
-    protected WebDriver webDriver;
+
+    private WebDriverManager webDriverManager;
 
     @BeforeEach
     public void beforeEach() {
-        webDriver = new ChromeDriver();
-    }
-
-    public BaseTestSingleUI() {
-
+        webDriverManager = new WebDriverManager();
     }
 
     @AfterEach
     public void afterEach() {
-        webDriver.close();
-        webDriver.quit();
+        webDriverManager.closeWebDriver();
+    }
+
+    public WebDriverManager getWebDriverManager() {
+        return webDriverManager;
     }
 }
