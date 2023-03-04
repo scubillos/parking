@@ -27,7 +27,7 @@ Route::delete('reservation', 'App\Http\Controllers\VehicleInController@destroy')
 Route::get('locations/date/{date}/schedule/{schedule}', 'App\Http\Controllers\LocationController@getAvailable');
 
 Route::get('reservations', function () {
-    return ReservationListResource::collection(VehicleIn::all());
+    return ReservationListResource::collection(VehicleIn::select('*')->orderBy('id', 'desc')->get());
 } );
 
 Route::get('reservation/{id}', 'App\Http\Controllers\VehicleInController@show');
