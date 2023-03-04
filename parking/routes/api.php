@@ -30,21 +30,15 @@ Route::get('reservations', function () {
     return ReservationListResource::collection(VehicleIn::all());
 } );
 
-Route::get('reservation/{id}', function ($id) {
-    return new ReservationResource(VehicleIn::findOrFail($id));
-} );
+Route::get('reservation/{id}', 'App\Http\Controllers\VehicleInController@show');
 
-Route::get('reservations/vehicle/{vehicle}', function ($vehicle) {
-    return ReservationResource::collection(VehicleIn::where("vehicle_id",$vehicle)->get());
-} );
+Route::get('reservations/vehicle/{vehicle}', 'App\Http\Controllers\VehicleInController@getVehicle');
 
 Route::get('locations', function () {
     return LocationResource::collection(Location::all());
 } );
 
-Route::get('vehicle/plat/{plat}', function ($plat) {
-    return new VehicleResource(Vehicle::where('plat_number',$plat)->first());
-} );
+Route::get('vehicle/plat/{plat}', 'App\Http\Controllers\VehicleController@showByPlatNumber');
 
 
 Route::get('customers', function () {

@@ -54,15 +54,6 @@ export const useReservationsStore = defineStore('reservationsStore', {
       return filter[0].text;
     },
 
-    toggleModal(status: boolean|null = null): boolean {
-      if (status !== null) {
-        this.modalForm = status;
-      } else {
-        this.modalForm = !this.modalForm;
-      }
-      return this.modalForm;
-    },
-
     resetForm(): void {
       this.action = 'create';
       this.form = {} as Reservation;

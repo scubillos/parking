@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ReservationResource;
+use App\Models\VehicleIn;
 use Illuminate\Http\Request;
 use App\Services\VehicleInService;
+use PHPUnit\Util\Exception;
 use Validator;
 
 class VehicleInController extends Controller
@@ -26,9 +29,33 @@ class VehicleInController extends Controller
     }
     /**
      *      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request $requestpublicaciones
      * @return \Illuminate\Http\Response
      */
+
+    public function show($id)
+    {
+        try {
+            $vehicle = VehicleIn::findOrFail($id);
+            return response($vehicle);
+        } catch (\Exception $e) {
+            return response(['status' => 'error', 'message' => [ 'No existe la reserva' ]]);
+        }
+    }
+
+    public function getVehicle($vehicle)
+    {
+        try {
+            $vehicle_obj = VehicleIn::where("vehicle_id",$vehicle)->get();
+            if (count($vehicle_obj) != 0) {
+                return ReservationResource::collection($vehicle_obj);
+            } else {
+                throw new Exception('No se ha encontrado el vehículo');
+            }
+        } catch (\Exception $e ) {
+            return response(['status' => 'error', 'message' => [ $e->getMessage() ] ], 404);
+        }
+    }
 
     public function create(Request $request)
     {
@@ -42,7 +69,7 @@ class VehicleInController extends Controller
         try {
             return response($this->service->reservation($data));
         } catch (\Exception $e) {
-            return response(['status' => 'error', 'message' => "Reservation: " . $e->getMessage()], 400);
+            return response(['status' => 'error', 'message' => [ "Reservation: " . $e->getMessage() ] ], 400);
         }
     }
 
@@ -58,7 +85,7 @@ class VehicleInController extends Controller
         try {
             return response($this->service->reservationUpdate($data,$id));
         } catch (\Exception $e) {
-            return response(['status' => 'error', 'message' => "Reservation: " . $e->getMessage()], 400);
+            return response(['status' => 'error', 'message' => [ "Reservation: " . $e->getMessage() ] ], 400);
         }
     }
 
@@ -75,7 +102,7 @@ class VehicleInController extends Controller
         try {
             return response($this->service->reservationUpdate($data));
         } catch (\Exception $e) {
-            return response(['status' => 'error', 'message' => "Reservation: " . $e->getMessage()], 400);
+            return response(['status' => 'error', 'message' => [ "Reservation: " . $e->getMessage()] ], 400);
         }
     }
 }
