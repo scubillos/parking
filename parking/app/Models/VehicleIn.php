@@ -11,7 +11,6 @@ class VehicleIn extends Model
     use HasFactory;
 
     protected $fillable = ['location_id', 'schedule', 'schedule_day', 'vehicle_id','created_by'];
-
     public function vehicle(): BelongsTo
     {
         return $this->belongsTo(Vehicle::class, 'vehicle_id', 'id');

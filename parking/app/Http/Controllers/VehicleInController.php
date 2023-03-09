@@ -37,7 +37,11 @@ class VehicleInController extends Controller
     {
         try {
             $vehicle = VehicleIn::findOrFail($id);
-            return response($vehicle);
+
+            $vehicle_res = $vehicle->toArray();
+            $vehicle_res['plat_number'] = $vehicle->vehicle->plat_number;
+
+            return response([ 'data' => $vehicle_res ]);
         } catch (\Exception $e) {
             return response(['status' => 'error', 'message' => [ 'No existe la reserva' ]]);
         }

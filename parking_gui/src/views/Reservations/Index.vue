@@ -59,7 +59,7 @@
       <FormReservation />
     </MDBModalBody>
     <MDBModalFooter>
-      <MDBBtn color="danger" @click="ReservationsStore.toggleModal()">
+      <MDBBtn color="danger" @click="ReservationsStore.modalForm = false">
         <i class="far fa-times-circle"></i>
         Cerrar
       </MDBBtn>
@@ -108,13 +108,13 @@ const save = () => {
 const newForm = () => {
   ReservationsStore.action = 'create';
   ReservationsStore.resetForm();
-  ReservationsStore.toggleModal(true);
+  ReservationsStore.modalForm = true;
 };
 
 const show = async (id: number) => {
   await ReservationsStore.show(id);
   ReservationsStore.action = 'edit';
-  ReservationsStore.toggleModal(true);
+  ReservationsStore.modalForm = true;
 };
 
 </script>

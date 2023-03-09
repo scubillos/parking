@@ -22,7 +22,6 @@ class VehicleInService
             "schedule" => "required|in:day,morning,afternoon",
             "schedule_day" => "required|date",
             "plat_number" => "required|regex:/(^[A-Z]{3,4}\d{2,3}$)/u",
-            "created_by" => "nullable|numeric"
         ];
 
 
@@ -39,7 +38,6 @@ class VehicleInService
             "schedule" => "in:day,morning,afternoon",
             "schedule_day" => "date",
             "plat_number" => "regex:/(^[A-Z]{3,4}\d{2,3}$)/u",
-            "created_by" => "numeric"
         ];
     }
 
