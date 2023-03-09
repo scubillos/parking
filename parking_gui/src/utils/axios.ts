@@ -1,4 +1,5 @@
 import axios from "axios";
+//import {toast} from "vue3-toastify";
 
 const axiosHttp = axios.create({
   baseURL: 'http://localhost:8000/api',
@@ -16,9 +17,10 @@ axiosHttp.interceptors.response.use(function (response) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
     if (error.response.data !== undefined) {
-	let errorMsg = error.response.data.message.plat_number[0];
-	alert(errorMsg);
-	return Promise.reject(errorMsg);
+      let errorMsg = error.response.data.plat_number[0];
+      alert(errorMsg);
+      //toast.error(errorMsg);
+      return Promise.reject(errorMsg);
     }
     return Promise.reject(error);
   });

@@ -40,6 +40,8 @@ Route::get('locations', function () {
 
 Route::get('vehicle/plat/{plat}', 'App\Http\Controllers\VehicleController@showByPlatNumber');
 
+Route::get('vehicles', 'App\Http\Controllers\VehicleController@getAll');
+
 
 Route::get('customers', function () {
     return 'Bienvenido al API';

@@ -10,36 +10,6 @@ use App\Models\Location;
 
 class VehicleInService
 {
-    /**
-     * GeoZone validation rules.
-     *
-     * @return array
-     */
-    public static function reservationRules()
-    {
-        return [
-            "location_id" =>"required",
-            "schedule" => "required|in:day,morning,afternoon",
-            "schedule_day" => "required|date",
-            "plat_number" => "required|regex:/(^[A-Z]{3,4}\d{2,3}$)/u",
-        ];
-
-
-    }
-
-    /**
-     * GeoZone validation rules.
-     *
-     * @return array
-     */
-    public static function reservationUpdateRules()
-    {
-        return [
-            "schedule" => "in:day,morning,afternoon",
-            "schedule_day" => "date",
-            "plat_number" => "regex:/(^[A-Z]{3,4}\d{2,3}$)/u",
-        ];
-    }
 
     /**
      * @param array $data
@@ -72,23 +42,37 @@ class VehicleInService
      * @param array $data
      * @return mixed
      */
-    public function reservationUpdate(array $data,$id)
+    public function reservationUpdate(array $data, $id)
     {
         $reservation = VehicleIn::find($id);
-        $vehicle = Vehicle::find($reservation->vehicle_id);
-        $result = array_replace($reservation->toArray(),$data);
-        $available = $this->isAvailable($result,true);
-        $isAllowedLocation = $this->isAllowedLocation($result,$vehicle->type);
-        if($available['value'] && $isAllowedLocation['value']) {
-            $reservation->update($data);
+
+        if ($reservation) {
+            $vehicle = Vehicle::find($reservation->vehicle_id);
+            $result = array_replace($reservation->toArray(), $data);
+            if (isset($data['location_id']) && $reservation->location_id != $data['location_id']) {
+                $available = $this->isAvailable($result, true);
+                $isAllowedLocation = $this->isAllowedLocation($result, $vehicle->type);
+            } else {
+                $available = [
+                    'value' => true,
+                    'message' => ""
+                ];
+                $isAllowedLocation = [
+                    'value' => true,
+                    'message' => ""
+                ];
+            }
+            if ($available['value'] && $isAllowedLocation['value']) {
+                $reservation->update($data);
+                return [
+                    $data
+                ];
+            }
             return [
-                $data
+                "message" => $available['message'] . $isAllowedLocation['message'],
+                $data,
             ];
         }
-        return [
-            "message" => $available['message'] . $isAllowedLocation['message'] ,
-            $data,
-        ];
     }
 
     private function isAllowedLocation (array $data, $type)

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\VehicleInCreateRequest;
+use App\Http\Requests\VehicleInUpdateRequest;
 use App\Http\Resources\ReservationResource;
 use App\Models\VehicleIn;
 use Illuminate\Http\Request;
@@ -61,14 +63,9 @@ class VehicleInController extends Controller
         }
     }
 
-    public function create(Request $request)
+    public function create(VehicleInCreateRequest $request)
     {
         $data = $request->toArray();
-        $validator = Validator::make($data, $this->service::reservationRules());
-
-        if ($validator->fails()) {
-            return response(['status' => 'error', 'message' => $validator->errors()], 400);
-        }
 
         try {
             return response($this->service->reservation($data));
@@ -77,14 +74,9 @@ class VehicleInController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(VehicleInUpdateRequest $request, $id)
     {
         $data = $request->toArray();
-        $validator = Validator::make($data, $this->service::reservationUpdateRules());
-
-        if ($validator->fails()) {
-            return response(['status' => 'error', 'message' => $validator->errors()], 400);
-        }
 
         try {
             return response($this->service->reservationUpdate($data,$id));
@@ -96,12 +88,6 @@ class VehicleInController extends Controller
     public function destroy(Request $request)
     {
         $data = $request->toArray();
-
-        $validator = Validator::make($data, $this->service::reservationUpdateRules());
-
-        if ($validator->fails()) {
-            return response(['status' => 'error', 'message' => $validator->errors()], 400);
-        }
 
         try {
             return response($this->service->reservationUpdate($data));

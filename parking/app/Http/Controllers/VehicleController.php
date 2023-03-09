@@ -2,14 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\ReservationResource;
 use App\Http\Resources\VehicleResource;
 use App\Models\Vehicle;
-use App\Models\VehicleIn;
-use App\Services\VehicleInService;
-use Illuminate\Http\Request;
-use PHPUnit\Util\Exception;
-use Validator;
+use Illuminate\Http\Response;
 
 class VehicleController extends Controller
 {
@@ -36,6 +31,16 @@ class VehicleController extends Controller
         } catch (\Exception $e) {
             return response(['status' => 'error', 'message' => [ 'No existe la placa' ]]);
         }
+    }
+
+    /**
+     * @return Response
+     */
+    public function getAll() : Response
+    {
+        $vehicles = VehicleResource::collection(Vehicle::all());
+
+        return response($vehicles);
     }
 
 }
