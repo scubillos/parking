@@ -7,6 +7,7 @@ import {
   Schedule,
   Location
 } from "./ReservationsInterfaces";
+import {toast} from "vue3-toastify";
 
 export const useReservationsStore = defineStore('reservationsStore', {
   state: () => {
@@ -68,20 +69,12 @@ export const useReservationsStore = defineStore('reservationsStore', {
     // CRUD
     async create(): Promise<void> {
       const response = await axiosHttp.post('/reservation', this.form);
-      if (response.data.message !== undefined) {
-        alert("Error " + response.data.message);
-      } else {
-        alert("Reservacion creada exitosamente");
-      }
+      toast.success("Reservacion creada exitosamente");
     },
 
     async update(): Promise<void> {
       const response = await axiosHttp.put(`/reservation/${this.form.id}`, this.form);
-      if (response.data.message !== undefined) {
-        alert("Error " + response.data.message);
-      } else {
-        alert("Reservacion actualizada exitosamente");
-      }
+      toast.success("Reservacion actualizada exitosamente");
     },
 
     async show(id: number): Promise<void> {
