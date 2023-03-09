@@ -9,7 +9,7 @@ axiosHttp.interceptors.response.use(function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
     if(response.status === 400) {
-      toast.success(response.message);;
+      toast.error(response.message);;
     }
 
     return response;

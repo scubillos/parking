@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "7fa1b63e-290d-44c3-add7-9ae8b90b2dac",
+		"_postman_id": "2d4df38a-550b-4238-a701-fe3ad637f57e",
 		"name": "parking",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "6956713"
+		"_exporter_id": "14847339"
 	},
 	"item": [
 		{
@@ -89,6 +89,27 @@
 		},
 		{
 			"name": "getbyVehicleId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/reservations/vehicle/13",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"reservations",
+						"vehicle",
+						"13"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAll Vehicles",
 			"request": {
 				"method": "GET",
 				"header": [],
