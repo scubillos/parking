@@ -43,6 +43,9 @@ class VehicleInCreateRequest extends FormRequest
 
     protected function failedValidation(Validator $validator) : HttpResponseException
     {
-        throw new HttpResponseException(response()->json($validator->errors(), 400));
+        throw new HttpResponseException(response()->json([
+            'success' => false,
+            'message' => $validator->errors()
+        ], 400));
     }
 }
