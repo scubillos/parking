@@ -47,7 +47,8 @@ class VehicleInService
         $reservation = VehicleIn::find($id);
 
         if ($reservation) {
-            $vehicle = Vehicle::find($reservation->vehicle_id);
+            $vehicleId = isset($data['plat_number']) ? Vehicle::where('plat_number',$data['plat_number'])->first()->id : $reservation->vehicle_id ;
+            $vehicle = Vehicle::find($vehicleId);
             $result = array_replace($reservation->toArray(), $data);
             if (isset($data['location_id']) && $reservation->location_id != $data['location_id']) {
                 $available = $this->isAvailable($result, true);

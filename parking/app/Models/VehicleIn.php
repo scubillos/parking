@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class VehicleIn extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = ['location_id', 'schedule', 'schedule_day', 'vehicle_id','created_by'];
     public function vehicle(): BelongsTo

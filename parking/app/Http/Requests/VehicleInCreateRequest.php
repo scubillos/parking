@@ -36,7 +36,7 @@ class VehicleInCreateRequest extends FormRequest
             'schedule.in'           => 'Solo se permite (day, morning, afternoon) para el horario',
             'schedule_day.required' => 'La fecha es obligatoria',
             'schedule_day.date'     => 'La fecha no es válida',
-            'plan_number.regex'     => 'El número de placa no tiene un formato válido',
+            'plat_number.regex'     => 'El número de placa no tiene un formato válido',
             'plat_number.exists'    => 'El número de placa no es válido',
         ];
     }

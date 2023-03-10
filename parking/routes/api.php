@@ -31,7 +31,7 @@ Route::get('reservations', function () {
 } );
 
 Route::get('reservation/{id}', 'App\Http\Controllers\VehicleInController@show');
-
+Route::delete('reservation/{id}', 'App\Http\Controllers\VehicleInController@destroy');
 Route::get('reservations/vehicle/{vehicle}', 'App\Http\Controllers\VehicleInController@getVehicle');
 
 Route::get('locations', function () {
