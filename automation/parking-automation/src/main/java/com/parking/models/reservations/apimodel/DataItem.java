@@ -1,4 +1,4 @@
-package com.parking.models.reservations;
+package com.parking.models.reservations.apimodel;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

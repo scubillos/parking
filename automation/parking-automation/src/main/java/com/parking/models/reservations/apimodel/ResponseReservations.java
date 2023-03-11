@@ -1,4 +1,4 @@
-package com.parking.models.reservations;
+package com.parking.models.reservations.apimodel;
 
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;

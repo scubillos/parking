@@ -2,8 +2,11 @@ package com.parking.drivermanager;
 
 import com.parking.utils.Browser;
 import com.parking.utils.PropertiesUtils;
+import org.openqa.selenium.PageLoadStrategy;
+import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -24,7 +27,10 @@ public class WebDriverManager {
         switch (getBrowser(PropertiesUtils.PROPERTIES_UTILS.getBrowser())) {
             default:
             case GOOGLE:
-                webDriver = new ChromeDriver();
+                ChromeOptions chromeOptions = new ChromeOptions();
+                chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
+                chromeOptions.addArguments("--remote-allow-origins=*", "start-maximized");
+                webDriver = new ChromeDriver(chromeOptions);
                 break;
             case FIREFOX:
                 webDriver = new FirefoxDriver();

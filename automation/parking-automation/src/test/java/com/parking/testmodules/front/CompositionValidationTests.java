@@ -6,7 +6,7 @@ import io.qameta.allure.Description;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class CompositionValidationTest extends BaseStepsUI {
+public class CompositionValidationTests extends BaseStepsUI {
 
     @Test
     @DisplayName("Reservation view components test")
