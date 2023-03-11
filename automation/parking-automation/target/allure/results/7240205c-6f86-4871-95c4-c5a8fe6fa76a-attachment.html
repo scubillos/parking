@@ -1,0 +1,21 @@
+<div>PUT to http://localhost:8000/api/reservation</div>
+
+<h4>Body</h4>
+<div>
+    <pre class="preformated-text">
+    {&quot;plat_number&quot;:&quot;MPX967&quot;,&quot;schedule_day&quot;:&quot;2023-03-18&quot;,&quot;location_id&quot;:1,&quot;schedule&quot;:&quot;morning&quot;}
+    </pre>
+</div>
+
+<h4>Headers</h4>
+<div>
+        <div>Accept: */*</div>
+        <div>Content-Type: text/plain; charset=ISO-8859-1</div>
+</div>
+
+
+
+<h4>Curl</h4>
+<div>
+curl -v -X PUT &#39;http://localhost:8000/api/reservation&#39; -H &#39;Accept: */*&#39; -H &#39;Content-Type: text/plain; charset=ISO-8859-1&#39; -d &#39;{&quot;plat_number&quot;:&quot;MPX967&quot;,&quot;schedule_day&quot;:&quot;2023-03-18&quot;,&quot;location_id&quot;:1,&quot;schedule&quot;:&quot;morning&quot;}&#39;
+</div>
