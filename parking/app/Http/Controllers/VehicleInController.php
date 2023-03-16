@@ -68,7 +68,7 @@ class VehicleInController extends Controller
         $data = $request->toArray();
 
         try {
-            return response($this->service->reservation($data));
+            return response(['status' => 'success', 'message' =>[$this->service->reservation($data)]],200);
         } catch (\Exception $e) {
             return response(['status' => 'error', 'message' => [ "Reservation: " . $e->getMessage() ] ], 400);
         }
@@ -79,18 +79,17 @@ class VehicleInController extends Controller
         $data = $request->toArray();
 
         try {
-            return response($this->service->reservationUpdate($data,$id));
+            return response(['status' => 'success', 'message' =>[$this->service->reservationUpdate($data,$id)]],200);
         } catch (\Exception $e) {
             return response(['status' => 'error', 'message' => [ "Reservation: " . $e->getMessage() ] ], 400);
         }
     }
 
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        $data = $request->toArray();
-
         try {
-            return response($this->service->reservationUpdate($data));
+             VehicleIn::find($id)->delete();
+            return response(['status' => 'success', 'message' => [ "reservacion: ".$id." eliminada con exito" ]],204);
         } catch (\Exception $e) {
             return response(['status' => 'error', 'message' => [ "Reservation: " . $e->getMessage()] ], 400);
         }
