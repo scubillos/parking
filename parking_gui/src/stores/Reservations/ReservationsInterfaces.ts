@@ -30,6 +30,6 @@ export interface Schedule {
 }
 
 export interface Location {
-  id: string;
+  id: number;
   text: string;
 }

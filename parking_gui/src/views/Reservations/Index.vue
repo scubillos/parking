@@ -96,13 +96,13 @@ onMounted(() => {
   ReservationsStore.getAll();
 });
 
-const save = () => {
+const save = async () => {
   if (ReservationsStore.action === 'create') {
-    ReservationsStore.create();
+    await ReservationsStore.create();
   } else {
-    ReservationsStore.update();
+    await ReservationsStore.update();
   }
-  ReservationsStore.getAll();
+  await ReservationsStore.getAll();
 };
 
 const newForm = () => {
@@ -115,6 +115,7 @@ const show = async (id: number) => {
   await ReservationsStore.show(id);
   ReservationsStore.action = 'edit';
   ReservationsStore.modalForm = true;
+  await ReservationsStore.getLocations();
 };
 
 </script>

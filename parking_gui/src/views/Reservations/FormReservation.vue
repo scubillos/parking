@@ -19,6 +19,7 @@
           class="form-control"
           type="date"
           id="form_schedule_day"
+          @change="filterLocations"
           v-model="ReservationsStore.form.schedule_day"
         />
       </MDBCol>
@@ -29,6 +30,7 @@
           aria-label="Franja"
           class="form-control"
           id="form_schedule"
+          @change="filterLocations"
           v-model="ReservationsStore.form.schedule"
         >
           <option v-for="schedule in ReservationsStore.schedules" :value="schedule.id" v-text="schedule.text" />
@@ -72,9 +74,12 @@ import { onMounted } from "vue";
 const ReservationsStore = useReservationsStore();
 
 onMounted(() => {
-  ReservationsStore.getLocations();
   ReservationsStore.getSchedules();
 });
+
+const filterLocations = async function () {
+  await ReservationsStore.getLocations();
+}
 
 </script>
 

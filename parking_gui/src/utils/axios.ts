@@ -9,7 +9,7 @@ axiosHttp.interceptors.response.use(function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
     if(response.status === 400) {
-      toast.error(response.message);;
+      toast.error(response.message);
     }
 
     return response;
@@ -17,23 +17,23 @@ axiosHttp.interceptors.response.use(function (response) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
     if (error.response.data !== undefined && error.response.data.success === false) {
-      let errors = [] as object;
-      let message = error.response.data.message;
-      for (let key in message) {
-        let value = message[key];
-        if (typeof value === "object") {
-          value.forEach((error_message) => {
-            errors.push(error_message);
-          });
-        } else if (typeof value === "string") {
-          error.push(value);
-        }
-      }
-
-      let errorMsg = errors.concat('\n');
-      toast.error(errorMsg);
+      extractMessages(error.response.data.message);
     }
     return Promise.reject(error);
   });
+
+const extractMessages = function (data : object) {
+  let errors = [] as object;
+  for (let key in data) {
+    let value = data[key];
+    if (typeof value === "object") {
+      extractMessages(value);
+    } else if (typeof value === "string") {
+      toast.error(value);
+    }
+  }
+  return errors;
+}
+
 
 export default axiosHttp;

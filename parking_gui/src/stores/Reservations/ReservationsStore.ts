@@ -26,17 +26,34 @@ export const useReservationsStore = defineStore('reservationsStore', {
     async getAll(): Promise<void> {
       const response = await axiosHttp.get('/reservations');
       this.reservation_list = response.data.data;
+      this.modalForm = false;
     },
 
     async getLocations(): Promise<void> {
-      const response = await axiosHttp.get('/locations');
-      this.locations = [];
-      response.data.data.forEach((row) => {
-        this.locations.push({
-          id: row.id,
-          text: `${row.parking_area} ${row.parking_number}`
+      this.locations = [] as Location[];
+
+      if (this.form.schedule_day && this.form.schedule) {
+        const response = await axiosHttp.get(`/locations/date/${this.form.schedule_day}/schedule/${this.form.schedule}`);
+        response.data.data.forEach((row : object) => {
+          this.locations.push({
+            id: row.id,
+            text: `${row.parking_area} ${row.parking_number}`
+          });
         });
-      });
+
+        if (this.action === 'edit' && !this.locations.filter((location : Location) => location.id === this.form.location_id)) {
+          this.locations.push({
+            id: this.form.location_id,
+            text: 'TODO: parking_area parking_number'
+          });
+        }
+
+      } else {
+        this.locations.push({
+          id: 0,
+          text: `Seleccione día y horario primero`
+        });
+      }
     },
 
     getSchedules(): void {
@@ -69,7 +86,9 @@ export const useReservationsStore = defineStore('reservationsStore', {
     // CRUD
     async create(): Promise<void> {
       const response = await axiosHttp.post('/reservation', this.form);
-      toast.success("Reservacion creada exitosamente");
+      if (response.data.success) {
+        toast.success("Reservacion creada exitosamente");
+      }
     },
 
     async update(): Promise<void> {
