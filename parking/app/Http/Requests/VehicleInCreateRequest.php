@@ -18,7 +18,7 @@ class VehicleInCreateRequest extends FormRequest
         return [
             "location_id" =>"required",
             "schedule" => "required|in:day,morning,afternoon",
-            "schedule_day" => "required|date",
+            "schedule_day" => "required|date|after:yesterday",
             "plat_number" => "required|regex:/(^[A-Z]{3,4}\d{2,3}$)/u|exists:vehicles,plat_number",
         ];
     }
@@ -36,6 +36,7 @@ class VehicleInCreateRequest extends FormRequest
             'schedule.in'           => 'Solo se permite (day, morning, afternoon) para el horario',
             'schedule_day.required' => 'La fecha es obligatoria',
             'schedule_day.date'     => 'La fecha no es válida',
+            'schedule_day.after'    => 'La fecha no debe ser aterior al día de hoy',
             'plat_number.regex'     => 'El número de placa no tiene un formato válido',
             'plat_number.exists'    => 'El número de placa no es válido',
         ];
