@@ -17,7 +17,7 @@ class VehicleInUpdateRequest extends FormRequest
     {
         return [
             "schedule" => "in:day,morning,afternoon",
-            "schedule_day" => "date",
+            "schedule_day" => "date|after:yesterday",
             "plat_number" => "regex:/(^[A-Z]{3,4}\d{2,3}$)/u|exists:vehicles,plat_number",
         ];
     }
@@ -32,6 +32,7 @@ class VehicleInUpdateRequest extends FormRequest
         return [
             'schedule.in'           => 'Solo se permite (day, morning, afternoon) para el horario',
             'schedule_day.date'     => 'La fecha no es válida',
+            'schedule_day.after'    => 'La fecha no debe ser anterior al día de hoy',
             'plan_number.regex'     => 'El número de placa no tiene un formato válido',
             'plat_number.exists'    => 'El número de placa no es válido',
         ];
