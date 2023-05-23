@@ -1,10 +1,10 @@
 
-# Parking Vehicles - ArchiPlus
+# Parking - ArchiPlus
 
 ## Compilacion
 1. Clonar este repositorio.
 2. Ubicarse en una terminal en el proyecto clonado.
-3. Ejecutar `docker build . -t archiplus/parking-vehicles`
+3. Ejecutar `docker build . -t archiplus/parking`
 4. Verficar imagen creada `docker image ls`
 
 
@@ -15,25 +15,26 @@
 4. Ejecutar `docker compose up -d`
 5. Listo 
 
-**Nota:** Asegurarse de que el puerto *8001* se encuentre libre antes de ejecutar el paso 4.
+**Nota:** Asegurarse de que el puerto *8000* se encuentre libre antes de ejecutar el paso 4.
 
 ## Despliegue con Kubernetes
 1. Clonar este repositorio.
 2. Ubicarse en una terminal en el proyecto clonado.
-3. Ejecutar `docker build . -t archiplus/parking-vehicles`
-4. Solo en K3S `docker save archiplus/parking-vehicles | sudo k3s ctr images import -`
+3. Ejecutar `docker build . -t archiplus/parking`
+4. Solo en K3S `docker save archiplus/parking | sudo k3s ctr images import -`
 5. Ejecutar `kubectl apply -f mysql-pv.yml`
-6. Ejecutar `kubectl apply -f parking-vehicles.yml`
+6. Ejecutar `kubectl apply -f parking.yml`
 7. Listo
 
 ## Tecnologías
-- Python3
+- PHP
+- Laravel 8
 - MySQL 5.7
 - Kubernetes
 - Docker
 
 ## Postman
-La colección de postman con los servicios GET y POST es el archivo ***parking.vehicles.postman_collection.json***.
+La colección de postman con los servicios GET y POST es el archivo ***parking.postman_collection.json***.
 
 ## Jmeter
 You are going to find a file with name "Test-Plan.jmx" to use it you need to have
