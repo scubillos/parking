@@ -17,7 +17,8 @@ class VehicleInService
      */
     public function reservation(array $data)
     {
-        $vehicle = Vehicle::where("plat_number", $data['plat_number'])->first();
+        $vehicles = VehicleService::getAll();
+        $vehicle = $vehicles->where("plat_number", $data['plat_number'])->first();
         unset($data["plat_number"]);
         $data["vehicle_id"] = $vehicle->id;
         $isAllowedLocation = $this->isAllowedLocation($data,$vehicle->type);
@@ -40,15 +41,16 @@ class VehicleInService
 
     /**
      * @param array $data
-     * @return mixed
+     * @return array|array[]|void
      */
     public function reservationUpdate(array $data, $id)
     {
         $reservation = VehicleIn::find($id);
+        $vehicles = VehicleService::getAll();
 
         if ($reservation) {
-            $vehicleId = isset($data['plat_number']) ? Vehicle::where('plat_number',$data['plat_number'])->first()->id : $reservation->vehicle_id ;
-            $vehicle = Vehicle::find($vehicleId);
+            $vehicleId = isset($data['plat_number']) ? $vehicles->where('plat_number',$data['plat_number'])->first()->id : $reservation->vehicle_id;
+            $vehicle = $vehicles->where('id', $vehicleId)->first();
             $result = array_replace($reservation->toArray(), $data);
             if (isset($data['location_id']) && $reservation->location_id != $data['location_id']) {
                 $available = $this->isAvailable($result, true);

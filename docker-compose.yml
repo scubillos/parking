@@ -11,10 +11,6 @@ services:
       - './db:/var/lib/mysql'
     ports:
       - ${MYSQL_PORT}:3306
-    networks:
-      net:
-        aliases:
-          - ${APP_NAME}_db
   api:
     container_name: ${APP_NAME}_api
     build: 
@@ -34,10 +30,6 @@ services:
       - ./${DIR_APP}:/var/www/html
     depends_on:
       - db
-    networks:
-      net:
-        aliases:
-          - ${APP_NAME}_api
     working_dir: /var/www/html
   nginx:
     container_name: ${APP_NAME}_nginx
@@ -50,10 +42,6 @@ services:
       - ./docker-compose/nginx/conf.d:/etc/nginx/conf.d/
     depends_on:
       - api
-    networks:
-      net:
-        aliases:
-          - ${APP_NAME}_nginx
 networks:
-  net:
-    driver: bridge
+  default:
+    name: parking_net

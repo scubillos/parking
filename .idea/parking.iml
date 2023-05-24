@@ -8,6 +8,8 @@
       <sourceFolder url="file://$MODULE_DIR$/parking/tests" isTestSource="true" packagePrefix="Tests\" />
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/parking/tests/Feature" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/parking/tests/Unit" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/parking/vendor/sebastian/object-enumerator" />
       <excludeFolder url="file://$MODULE_DIR$/parking/vendor/sebastian/global-state" />
       <excludeFolder url="file://$MODULE_DIR$/parking/vendor/sebastian/complexity" />

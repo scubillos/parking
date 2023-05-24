@@ -13,7 +13,7 @@ class VehicleIn extends Model
     use SoftDeletes;
 
     protected $fillable = ['location_id', 'schedule', 'schedule_day', 'vehicle_id','created_by'];
-    public function vehicle(): BelongsTo
+    /*public function vehicle(): BelongsTo
     {
         return $this->belongsTo(Vehicle::class, 'vehicle_id', 'id');
     }
@@ -21,7 +21,7 @@ class VehicleIn extends Model
     public function location(): BelongsTo
     {
         return $this->belongsTo(Location::class, 'location_id', 'id');
-    }
+    }*/
 
     public function user(): BelongsTo
     {
